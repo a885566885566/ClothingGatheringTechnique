@@ -1,0 +1,108 @@
+#Header{
+    width: 100%;
+    height: 80px;
+    text-align: center;
+    line-height: 80px;
+    font-size: 15px;
+    color: #fffaf3;
+    font-weight: bold;
+    background-color: #f9c81e;
+}
+
+#Sidebar{
+    width: 10%;
+    float: left;
+    height: 100vh;
+    text-align: center;
+    line-height: 280px;
+    font-size: 15px;
+    color: #ffffff;
+    font-weight: bold;
+    background-color: #cecece;
+}
+
+#Body{
+    width: 90%;
+    height: 100vh;
+    text-align: center;
+    line-height: 280px;
+    font-size: 15px;
+    color: #888888;
+    font-weight: bold;
+    background-color: #fffaf3;
+    float: left;
+}
+
+.std_id{
+    font-size: 30px;
+    color: #666666;
+    line-height: 50px;
+}
+
+body{
+    //background-color:#DDDDDD;
+    color: #000000;
+    font-family: Microsoft JhengHei;
+}
+
+.photo{
+    border-radius: 50%;
+}
+
+.cloth{
+    position: absolute;
+    width: 750px;
+    height: 200px;
+    border: 3px #666666 dashed;
+    border-radius: 10px;
+    display: table;
+}
+
+.left{
+    width: 200px;
+    height: 180px;
+    line-height: 10px;
+    padding-bottom: 20px;
+    margin-left: 10px;
+    //margin-right: 10px;
+    //border: 2px blue solid;
+    display: table-cell;
+    text-align: center;
+    float: left;
+}
+
+.right{
+    width: 500px;
+    height: 180px;
+    margin-top: 10px;
+    padding-left: 10px;
+    //border: 2px red solid;
+    text-align: center;
+    float: left;
+}
+
+.cloth_number{
+    line-height: 0px;
+    font-size: 120px;
+    font-family: comic sans ms;
+    float: left;
+}
+
+.word{
+    line-height: 220px;
+    font-size: 40px;
+    font-family: monospace;
+}
+
+.status{
+    font-size: 40px;
+    font-family: SimSun;
+    font-weight: bold;
+    line-height: 20px;
+}
+
+.info{
+    font-size: 32px;
+    font-family: SimSun;
+    line-height: 5px;
+}
