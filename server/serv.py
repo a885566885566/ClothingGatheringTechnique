@@ -21,7 +21,6 @@ count = 0
 async def ClothDrying(request):
     global key
     global count
-    print("Get new req")
     key = request.rel_url.query['key']
     finish = request.rel_url.query['end']
     
@@ -30,10 +29,11 @@ async def ClothDrying(request):
         if count > 5:
             count = 0
             return web.json_response({"status":"ok"})
-    elif finish == '1':
-        return web.Response(text=key + " finish",content_type='text/html')
-    elif finish == '2':
-        return web.Response(text=key + " next cloth",content_type='text/html')
+    return web.json_response({"status":"nok"})
+    #elif finish == '1':
+    #    return web.Response(text=key + " finish",content_type='text/html')
+    #elif finish == '2':
+    #    return web.Response(text=key + " next cloth",content_type='text/html')
      
 
 async def ClothGathering(request):

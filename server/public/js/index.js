@@ -1,6 +1,7 @@
 var clothcount=0;
 var key = "e94056233"
 var CLOTH_STATE = ['EMPTY', 'WET', 'DRY']
+var drying_flag = false
 //收衣主頁
 $(document).ready(()=>{
     var update_state = ()=>{
@@ -22,38 +23,33 @@ $(document).ready(()=>{
             method:"get",
             url:"../drying?key="+key+"&end=0",
             success:(data)=>{
-                if(data["status"]=="ok")
-                    $('#btn_next_drying').attr("disabled");
+                if(data["status"]=="ok"){
+                    $('#btn_next_cloth').attr("disabled");
+                }
                 else{
-                    $('#btn_next_drying').removeAttr("disabled");
+                    $('#btn_next_cloth').removeAttr("disabled");
                     setTimeout(pollingDrying, 1000);
                 }
             }
         })
     }
-    $("#drying_mode").hide();
+    $("#mode_drying").hide();
     update_state()
 
-    $("#btn_drying").click(pollingDrying)
-    console.log("drying")
-    $("#infoblock").hide();
-    $("#drying_mode").show();
+    $("#btn_drying").click(()=>{
+        $("#mode_status").hide();
+        $("#mode_drying").show();
+    })
     //button結束晾衣服
     $("#enddrybtn").click(()=>{
-        $("#drying_mode").hide();
+        $("#mode_drying").hide();
         $("#infoblock").show();
         $("#clothcount").text(clothcount=0);
     })
     //button下一件衣服
     $("#btn_next_cloth").click(()=>{
-        $("#clothcount").text(++clothcount);
-        $.ajax({
-            method:"get",
-            url:"./drying?key="+key+"&end="+false,
-            success:(data)=>{
-
-            }
-        })
+        console.log("drying")
+        pollingDrying()
     })
 })
 //button進入晾衣服頁面(晾衣服)
