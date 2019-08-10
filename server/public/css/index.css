@@ -1,84 +1,9 @@
-body{
-    //background-color:#DDDDDD;
-    color: #000000;
-    font-family: Microsoft JhengHei;
+.inline{
+    display: inline-block;
 }
 
-.photo{
-    border-radius: 50%;
-}
-
-#hang{
-    font-size: 20px;
-    font-family: SimSun;
-}
-
-.cloth{
-    width: 100%;
-    height: 140px;
-    border: 3px #0044BB solid;
-    border-radius: 10px;
-    //background-color: #CCDDFF;
-    margin-top: 20px;
-}
-
-.left{
-    width: 100px;
-    //height: 135px;
-    line-height: 10px;
-    padding-bottom: 20px;
-    margin-left: 25px;
-    margin-right: 10px;
-    //border: 2px blue solid;
-    display: table-cell;
-    text-align: center;
-    float: left;
-    color: #003377;
-}
-
-.right{
-    width: 200px;
-    //height: 135px;
-    padding-top: 10px;
-    padding-left: 10px;
-    //border: 2px red solid;
-    text-align: center;
-    float: left;
-    color: #003377;
-}
-
-.cloth_number{
-    line-height: 90px;
-    font-size: 50px;
-    font-family: comic sans ms;
-    font-weight: bold;
-    float: left;
-}
-
-.word{
-    line-height: 120px;
-    font-size: 25px;
-    font-family: monospace;
-}
-
-.status{
-    font-size: 18px;
-    font-family: SimSun;
-    font-weight: bold;
-    line-height: 20px;
-}
-
-.info{
-    font-size: 14px;
-    font-family: SimSun;
-    line-height: 5px;
-}
-
-.collect_btn{
-    width: 100px;
-    height: 40px;
-    font-size: 20px;
-    font-family: SimSun;
-    margin-left: 140px;
-    //border: 2px #000088 solid;
+.text{
+    color:#FF7744;
+    font-size:0.4cm;
+    font-family:fantasy;
 }
