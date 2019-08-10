@@ -1,30 +1,31 @@
-"Number larger has higher priority"
+import time
+import Machine
+
+"""Number larger has higher priority"""
 PRIORITY_CLOTH_SORTING = 1
 PRIORITY_CLOTH_GATHERING = 2
 PRIORITY_CLOTH_DRYING = 3
-
-class Machine:
-    def __init__(self, capacity):
-        self.index = 0
-        self.MAX_CAPACITY = capacity
-        self.clothes = []
-        self.
-"
-The detail working command of events, handling motor movements.
-Param:
-    lock: If set to True, indicating that this task is not interruptable.
-"
-class Task:
-    def __init__(self, lock=False):
-        self.working_lock = lock
-
-"
+"""
 The parent class of Events
-"
+"""
 class Event:
+
     def __init__(self, p):
-        self.prioity = p
-        self.tasksQueue = []
+        self.priority = p
+        self.taskQueue = []
+
+    def getTasks(self):
+        for i in range(2*self.priority) :
+            self.taskQueue.append({"mode":"A", "para":i, "lock":i<3})
+        return self.taskQueue
+
+    def print(self):
+        print("Priority=" + str(self.priority) + ", Tasks=", end="")
+        for t in self.taskQueue:
+            if t["lock"]:
+                print("*", end="")
+            print(t["mode"]+str(t["para"])+", ", end="")
+        print("")
 
 class ClothSortingEvent(Event):
     def __init__(self):
@@ -38,19 +39,29 @@ class ClothGatheringEvent(Event):
     def __init__(self):
         super().__init__(PRIORITY_CLOTH_GATHERING)
 
-"
+"""
 Dealing with event flow, that is, event inserting, deleting and running.
-"
+"""
 class EventHandler:
+    JSON_FILENAME = "event_status.json"
+    AUTO_SAVING_INTERVAL = 10 #sec
     def __init__(self, machine):
-        self.eventQueue = []
-        self.taskQueue = []
-        self.maching = machine
-    
-    "
+        self.saver = Machine.File_Saver(type(self).JSON_FILENAME, type(self).AUTO_SAVING_INTERVAL)
+
+        # Load events infomations from past data
+        events_json = self.saver.load() 
+        if events_json is not False:
+            self.eventQueue = events_json['eventQueue']
+            self.taskQueue = events_json['taskQueue']
+        else:
+            self.eventQueue = []
+            self.taskQueue = []
+        self.machine = machine
+
+    """
     Add event according to the event's priority, and if the running event interrupting
     is needed, it will store the old event automatically, and reschedule it.
-    "
+    """
     def addEvent(self, new_event):
         i = 0
         # If there are two event reach, the new one's priority is lower. So it will be sorted to backend.
@@ -62,28 +73,32 @@ class EventHandler:
         if i == 0:
             old_event = self.deleteRunningEvent()
             self.eventQueue.insert(i, new_event)
-            self.taskQueue.append(self.eventQueue[0].getTasks())
+            for t in self.eventQueue[0].getTasks():
+                self.taskQueue.append(t)
 
         else:
             self.eventQueue.insert(i, new_event)
         
         # The old event need to be stored(If it exists), this must run at the end,
         # otherwise, it might cause recursive logic error
-        if old_Event:
+        if old_event:
             self.addEvent(old_event)
 
-    "
+        self.file_modified = True
+
+    """
     Delete the running event. If the running event have some locked task that can not 
     be interrupted, it will keep them untill interruption can be performed. Finally, 
     push new event in the eventQueue.
     It will return the old event if it exist.
-    "
+    """
     def deleteRunningEvent(self):
         if len(self.eventQueue) <= 0:
             return None
         # Check if the running task is interruptable
         task_i = 0
-        while task_i < len(self.taskQueue) and self.taskQueue[task_i].working_lock:
+        print(self.taskQueue)
+        while task_i < len(self.taskQueue) and self.taskQueue[task_i]["lock"]:
             task_i += 1
         
         # Delete all task that are interruptable
@@ -93,6 +108,7 @@ class EventHandler:
         print(str(len(self.eventQueue)) + "events in queue.")
         old_event = self.eventQueue[0]
         del self.eventQueue[0]
+        self.file_modified = True
         return old_event
 
     def update(self):
@@ -107,8 +123,34 @@ class EventHandler:
         else:
             pass
 
-    def printState(self):
+        # Auto saving
+        if self.saver.file_save_check(self.file_modified):
+            self.saver.save(self._create_json_obj())
+            self.file_modified = False
+
+    def print(self):
+        print("Event==================================")
         print(str(len(self.eventQueue)) + "events in queue.")
         print(str(len(self.taskQueue)) + "tasks in queue.")
-        print("==================================")
-        pass
+        for e in self.eventQueue:
+            e.print()
+    
+    def _create_json_obj(self):
+        events_json = {
+                "eventQueue": self.eventQueue,
+                "taskQueue":self.taskQueue
+                }
+        return events_json
+
+    def close(self):
+        self.saver.save(self._create_json_obj())
+
+if __name__ == '__main__':
+    machine = Machine.Machine(40)
+    event_handler = EventHandler(machine)
+    event_handler.addEvent(Event(PRIORITY_CLOTH_SORTING))
+    event_handler.addEvent(Event(PRIORITY_CLOTH_DRYING))
+    event_handler.addEvent(Event(PRIORITY_CLOTH_DRYING))
+    event_handler.addEvent(Event(PRIORITY_CLOTH_GATHERING))
+    event_handler.addEvent(Event(PRIORITY_CLOTH_GATHERING))
+    event_handler.print()
