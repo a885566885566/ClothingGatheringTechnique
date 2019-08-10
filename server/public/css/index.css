@@ -7,3 +7,34 @@
     font-size:0.4cm;
     font-family:fantasy;
 }
+
+.clothnum{
+    height:100px;
+    margin-bottom:10px;
+    border:1px;
+}
+
+.state{
+    float:right;
+    width:170px;
+    border:1px;
+}
+
+.time{
+    float :right;
+    width:10em;
+    font-size:2em;
+    border-style:solid;
+    border-radius:10px;
+    border-width:1px;
+    border-color:#8C0044;
+}
+
+.dryclothbtn{
+    float:middle;
+    width:10em;
+    height:10em;
+    font-size:1em;
+}
+
+
