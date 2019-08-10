@@ -4,12 +4,26 @@ from aiohttp import web
 FILE_PATH = './public'
 MAIN_INDEX = '/index.html'
 
-async def index(request):
+#r
+async def ClothStatus(request):
     print("Get new req")
-    with open(FILE_PATH + MAIN_INDEX) as f:
-        return web.Response(text=f.read(),content_type='text/html')
+    #with open(FILE_PATH + MAIN_INDEX) as f:
+    #return web.Response(text=f.read(),content_type='text/html')
+    return web.Response(text="Hello World",content_type='text/html')
 
-async def test():
+async def ClothDrying(request):
+    print("Get new req")
+    #with open(FILE_PATH + MAIN_INDEX) as f:
+    #return web.Response(text=f.read(),content_type='text/html')
+    return web.Response(text="Hello World",content_type='text/html')
+
+async def ClothGathering(request):
+    print("Get new req")
+    #with open(FILE_PATH + MAIN_INDEX) as f:
+    #return web.Response(text=f.read(),content_type='text/html')
+    return web.Response(text="Hello World",content_type='text/html')
+
+async def Test():
     while True:
         await asyncio.sleep(1)
         print("test")
@@ -17,7 +31,10 @@ async def test():
 async def init(loop):
     app = web.Application(loop=loop)
     app.router.add_static('/public','./public')
-    app.router.add_get('/public/{name}',index)
+    #receiving request
+    app.router.add_get('/status',ClothStatus)
+    app.router.add_get('/drying',ClothDrying)
+    app.router.add_get('/gathering',ClothGathering)
     srv = await loop.create_server(app.make_handler(),host='0.0.0.0',port=11230)
     print("server created")
     return srv
