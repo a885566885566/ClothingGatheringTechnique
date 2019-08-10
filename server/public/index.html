@@ -13,35 +13,39 @@
             <div class="" id="status_title">
             </div>
             <div class="" id="infoblock">
-                <div class="">
-                    <button type="button" class="btn btn-warning rounded-circle dryclothbtn" id="dryingbtn"> 晾衣服 </button>
-                </div>
-                <div class="">
-                    <div class="clothnum">
-                        <p class="inline">15</p>
-                        <p class="inline">件</p>
-                    </div>
-                    <div class="state">
-                        <p class="inline">狀態:</p>
-                        <p class="inline">乾囉!</p>
-                    </div> 
-                    <div class="time">
-                        <p class="inline">晾衣時間:</p>
-                        <p class="inline">2019/8/6</p>
-                    </div>
-
-                    <button type="button" class="btn btn-success">我要收衣服!</button>
-                </div>
+                <button type="button" class="btn btn-warning rounded-circle dryclothbtn" id="dryingbtn"> 晾衣服 </button>
+            </div>
+            <div class="">
             </div>
 
-            <div class="" id="dryingmode">
-                <p>晾衣服模式</p>
-                <div class="inline">目前晾<span id="clothcount"> <span></div>
-                <div class=""">件衣服</div>
-                <button type="button" class="btn btn-info" id="nextcloth">下一件</button>
-                <button type="button" class="btn btn-danger" id="enddrybtn">結 束</button>
-
+            <div class="" id="status_list">
+                <div class="status_item">
+                    <div class="cloth_num">
+                        <p class="big_number" id="">15</p>
+                        <p>件</p>
+                    </div>
+                    <div>
+                        <div class="cloth_state">
+                            <p>目前狀態:</p>
+                            <p id="cloth_state">乾囉!</p>
+                        </div> 
+                        <div class="cloth_state">
+                            <p>晾衣時間:</p>
+                            <p id="cloth_time">2019/8/6</p>
+                        </div>
+                        <button type="button" class="btn btn-success" id="cloth_btn">我要收衣服!</button>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <div class="" id="dryingmode">
+            <p>晾衣服模式</p>
+            <div class="inline">目前晾<span id="clothcount"> <span></div>
+            <div class=""">件衣服</div>
+            <button type="button" class="btn btn-info" id="nextcloth">下一件</button>
+            <button type="button" class="btn btn-danger" id="enddrybtn">結 束</button>
+
         </div>
         <script src="./js/index.js"></script>
     </body>
