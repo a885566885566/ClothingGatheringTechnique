@@ -40,9 +40,7 @@ $(document).ready(()=>{
             success:(data)=>{
 
             }
-
         })
-
     })
 })
 //button進入晾衣服頁面(晾衣服)
