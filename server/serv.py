@@ -17,14 +17,19 @@ async def ClothStatus(request):
     status = event_handler.machine.get_status(0)
     return web.json_response(status)
 
+count = 0
 async def ClothDrying(request):
     global key
+    global count
     print("Get new req")
     key = request.rel_url.query['key']
     finish = request.rel_url.query['end']
     
     if finish == '0':
-        return web.Response(text=key + " not finish",content_type='text/html')
+        count += 1
+        if count > 5:
+            count = 0
+            return web.json_response({"status":"ok"})
     elif finish == '1':
         return web.Response(text=key + " finish",content_type='text/html')
     elif finish == '2':
@@ -42,7 +47,7 @@ async def ClothGathering(request):
     return web.Response(text="Hello World",content_type='text/html')
 
 async def Test():
-    event_handler.addEvent(ClothSortingEvent(1))
+    event_handler.addEvent(Event.ClothSortingEvent(1))
     while True:
         event_handler.update()
         #await asyncio.sleep(1)
@@ -64,7 +69,7 @@ if __name__ == '__main__':
         loop = asyncio.get_event_loop()
 
         #create task(can add any function)
-        loop.create_task(Test())
+        #loop.create_task(Test())
         
         loop.run_until_complete(init(loop))
         loop.run_forever()
