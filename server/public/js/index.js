@@ -1,18 +1,21 @@
 var clothcount=0;
+var key = "e94056233"
 //收衣主頁
 $(document).ready(()=>{
     $("#dryingmode").hide();
 })
 //button進入晾衣服頁面(晾衣服)
 $("#dryingbtn").click(()=>{
+    $.ajax({
+        method:"get",
+        url:"./drying?key="+key+",end="+false,
+        success:(data)=>{
+                    
+        }
+    })
     console.log("drying")
     $("#infoblock").hide();
     $("#dryingmode").show();
-    $.ajax({
-        method:"get",
-        url:"./drying?key="+key+"end="+false,
-        success:
-    })
 })
 //button結束晾衣服
 $("#enddrybtn").click(()=>{
@@ -26,6 +29,10 @@ $("#nextcloth").click(()=>{
     $.ajax({
         method:"get",
         url:"./drying?key="+key+"&end="+false,
-        success:
+        success:(data)=>{
+
+        }
+
     })
+
 })
