@@ -28,6 +28,7 @@ async def ClothDrying(request):
         count += 1
         if count > 5:
             count = 0
+            print("ok")
             return web.json_response({"status":"ok"})
     return web.json_response({"status":"nok"})
     #elif finish == '1':

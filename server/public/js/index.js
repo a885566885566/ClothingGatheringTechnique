@@ -18,18 +18,16 @@ $(document).ready(()=>{
         })
     }
 
-    var pollingDrying = ()=>{
+    var pollingDrying = (callback)=>{
+        console.log("Polling")
         $.ajax({
             method:"get",
             url:"../drying?key="+key+"&end=0",
             success:(data)=>{
-                if(data["status"]=="ok"){
-                    $('#btn_next_cloth').attr("disabled");
-                }
-                else{
-                    $('#btn_next_cloth').removeAttr("disabled");
-                    setTimeout(pollingDrying, 1000);
-                }
+                if(data["status"]=="ok")
+                    callback(true)
+                else
+                    callback(false)
             }
         })
     }
@@ -49,8 +47,22 @@ $(document).ready(()=>{
     //button下一件衣服
     $("#btn_next_cloth").click(()=>{
         console.log("drying")
-        pollingDrying()
+        drying_flag = true
     })
+    // Main update
+    setInterval(()=>{
+        if(drying_flag){
+            pollingDrying((state)=>{
+                if(state){
+                    console.log("ok")
+                    drying_flag = false;
+                    $('#btn_next_cloth').removeAttr("disabled");
+                }
+                else
+                    $('#btn_next_cloth').attr("disabled");
+            })
+        }
+    }, 500)
 })
 //button進入晾衣服頁面(晾衣服)
 
